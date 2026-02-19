@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <!-- =========================
+       META / BASIS
+  ========================== -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dönerhaus Mönchengladbach – Döner • Dürüm • Lahmacun</title>
+  <meta name="description" content="Dönerhaus Mönchengladbach – frischer Döner, Dürüm, Lahmacun, Falafel. Onepager mit Menü, Login, Impressum & Datenschutz." />
+
+  <!-- =========================
+       CSS EINBINDEN (externe Datei)
+  ========================== -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- =========================
+       HEADER / NAVIGATION
+  ========================== -->
+  <header class="header">
+    <div class="container nav">
+      <!-- Logo/Brand -->
+      <a class="brand" href="#top" aria-label="Startseite">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="brandText">
+          <span class="brandName">Dönerhaus MG</span>
+          <span class="brandSub">Mönchengladbach</span>
+        </div>
+      </a>
+
+      <!-- Navigation (Ankerlinks zum Onepager) -->
+      <nav aria-label="Hauptnavigation">
+        <ul class="navList">
+          <li><a href="#menu">Menükarte</a></li>
+          <li><a href="#about">Über uns</a></li>
+          <li><a href="#hours">Öffnungszeiten</a></li>
+          <li><a href="#contact">Kontakt</a></li>
+          <li><a href="#impressum">Impressum</a></li>
+          <li><a href="#datenschutz">Datenschutz</a></li>
+        </ul>
+      </nav>
+
+      <!-- Login Button (öffnet Modal via JS) -->
+      <button class="btn small" id="loginOpenBtn" type="button">
+        Login
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================
+       HERO / TOP-BEREICH
+  ========================== -->
+  <main id="top">
+    <section class="hero">
+      <div class="container heroWrap">
+        <!-- Linke Seite: Text & CTAs -->
+        <div class="card heroCard">
+          <div class="inner">
+            <div class="pill">🔥 Frisch vom Spieß • 🥗 Hausgemachte Saucen • 🥙 Vegetarisch</div>
+            <h1>Dönerhaus MG – echter Geschmack in Mönchengladbach</h1>
+            <p class="lead">
+              Döner, Dürüm, Lahmacun & Falafel – schnell, frisch und lecker.
+              Ideal für die Mittagspause oder den Feierabend.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="heroActions">
+              <a class="btn primary" href="#menu">Menü ansehen</a>
+              <a class="btn" href="#contact">Jetzt kontaktieren</a>
+            </div>
+
+            <!-- Kleine Info-Badges -->
+            <div class="badges">
+              <div class="badge">📍 Nähe Innenstadt MG</div>
+              <div class="badge">🕒 Schnell & freundlich</div>
+              <div class="badge">💳 Bar & Karte</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rechte Seite: Highlight-Box -->
+        <aside class="card heroAside" aria-label="Highlights">
+          <div class="inner">
+            <h2 class="h2">Heute beliebt</h2>
+
+            <div class="featureList">
+              <div class="feature">
+                <div class="dot" aria-hidden="true"></div>
+                <div>
+                  <div class="featureTitle">Döner Classic</div>
+                  <div class="featureText">Kalb/Hähnchen, Salatmix, Sauce nach Wahl</div>
+                </div>
+              </div>
+
+              <div class="feature">
+                <div class="dot" aria-hidden="true"></div>
+                <div>
+                  <div class="featureTitle">Dürüm Spezial</div>
+                  <div class="featureText">Mit extra Käse + gegrilltem Gemüse</div>
+                </div>
+              </div>
+
+              <div class="feature">
+                <div class="dot" aria-hidden="true"></div>
+                <div>
+                  <div class="featureTitle">Falafel Bowl</div>
+                  <div class="featureText">Vegetarisch, frisch, sättigend</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <p class="muted smallText">
+              Hinweis: Preise sind Beispielwerte. Für echte Nutzung bitte anpassen.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- =========================
+         MENÜKARTE (mit Filter + Suche via JS)
+    ========================== -->
+    <section class="section" id="menu">
+      <div class="container">
+        <div class="sectionHead">
+          <h2>Menükarte</h2>
+          <p class="muted">Durchsuche das Menü oder filtere nach Kategorien.</p>
+        </div>
+
+        <!-- Controls: Suche + Filter -->
+        <div class="menuControls card">
+          <div class="inner controlsRow">
+            <label class="control">
+              <span class="controlLabel">Suche</span>
+              <input id="menuSearch" type="search" placeholder="z.B. Döner, Falafel, Ayran…" />
+            </label>
+
+            <label class="control">
+              <span class="controlLabel">Kategorie</span>
+              <select id="menuCategory">
+                <option value="all">Alle</option>
+                <option value="doener">Döner</option>
+                <option value="dueruem">Dürüm</option>
+                <option value="lahmacun">Lahmacun</option>
+                <option value="vegetarisch">Vegetarisch</option>
+                <option value="snacks">Snacks</option>
+                <option value="getraenke">Getränke</option>
+              </select>
+            </label>
+
+            <button class="btn" id="menuReset" type="button">Zurücksetzen</button>
+          </div>
+        </div>
+
+        <!-- Menü-Grid (wird aus HTML gerendert, JS filtert) -->
+        <div class="grid menuGrid" id="menuGrid">
+          <!-- === Döner === -->
+          <article class="menuItem card" data-category="doener" data-name="Döner Classic">
+            <div class="inner">
+              <div class="menuTop">
+                <h3>Döner Classic</h3>
+                <span class="price">7,50 €</span>
+              </div>
+              <p class="muted">Kalb oder Hähnchen, Salatmix, Sauce nach Wahl.</p>
+              <div class="tags">
+                <span class="tag">Beliebt</span><span class="tag">Schnell</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="menuItem card" data-category="doener" data-name="Döner Spezial">
+            <div class="inner">
+              <div class="menuTop">
+                <h3>Döner Spezial</h3>
+                <span class="price">8,50 €</span>
+              </div>
+              <p class="muted">Mit extra Käse & Peperoni, Sauce nach Wahl.</p>
+              <div class="tags">
+                <span class="tag">Scharf optional</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- === Dürüm === -->
+          <article class="menuItem card" data-category="dueruem" data-name="Dürüm Döner">
+            <div class="inner">
+              <div class="menuTop">
+                <h3>Dürüm Döner</h3>
+                <span class="price">8,00 €</span>
+              </div>
+              <p class="muted">Gerollt im Fladen, Fleisch nach Wahl, Salat & Sauce.</p>
+              <div class="tags">
+                <span class="tag">To-go</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="menuItem card" data-category="dueruem" data-name="Dürüm Vegetarisch">
+            <div class="inner">
+              <div class="menuTop">
+                <h3>Dürüm Vegetarisch</h3>
+                <span class="price">7,50 €</span>
+              </div>
+              <p class="muted">Mit Falafel oder Grillgemüse, Salat & Sauce.</p>
+              <div class="tags">
+                <span class="tag">Veggie</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- === Lahmacun === -->
+          <article class="menuItem card" data-category="lahmacun" data-name="Lahmacun mit Salat">
+            <div class="inner">
+              <div class="menuTop">
+                <h3>Lahmacun mit Salat</h3>
+                <span class="price">7,00 €</span>
+              </div>
+              <p class="muted">Klassisch mit frischem Salat & Zitrone.</p>
+              <div class="tags">
+                <span class="tag">Klassiker</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="menuItem card" data-category="lahmacun" data-name="Lahmacun mit Döner">
+            <div class="inner">
+              <div class="menuTop">
+                <h3>Lahmacun mit Döner</h3>
+                <span class="price">9,00 €</span>
+              </div>
+              <p class="muted">Lahmacun gefüllt mit Dönerfleisch, Salat & Sauce.</p>
+              <div class="tags">
+                <span class="tag">Sattmacher</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- === Vegetarisch === -->
+          <article class="menuItem card" data-category="vegetarisch" data-name="Falafel Teller">
+            <div class="inner">
+              <div class="menuTop">
+                <h3>Falafel Teller</h3>
+                <span class="price">10,50 €</span>
+              </div>
+              <p class="muted">Falafel, Salat, Reis oder Pommes, Sauce.</p>
+              <div class="tags">
+                <span class="tag">Veggie</span><span class="tag">Teller</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="menuItem card" data-category="vegetarisch" data-name="Halloumi Sandwich">
+            <div class="inner">
+              <div class="menuTop">
+                <h3>Halloumi Sandwich</h3>
+                <span class="price">8,50 €</span>
+              </div>
+              <p class="muted">Gegrillter Halloumi, Salat, Sauce im Fladenbrot.</p>
+              <div class="tags">
+                <span class="tag">Veggie</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- === Snacks === -->
+          <article class="menuItem card" data-category="snacks" data-name="Pommes">
+            <div class="inner">
+              <div class="menuTop">
+                <h3>Pommes</h3>
+                <span class="price">3,50 €</span>
+              </div>
+              <p class="muted">Knusprig, auf Wunsch mit Ketchup/Mayo.</p>
+              <div class="tags">
+                <span class="tag">Snack</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="menuItem card" data-category="snacks" data-name="Sigara Börek">
+            <div class="inner">
+              <div class="menuTop">
+                <h3>Sigara Börek</h3>
+                <span class="price">4,50 €</span>
+              </div>
+              <p class="muted">Gefüllte Teigröllchen (z. B. Käse).</p>
+              <div class="tags">
+                <span class="tag">Snack</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- === Getränke === -->
+          <article class="menuItem card" data-category="getraenke" data-name="Ayran">
+            <div class="inner">
+              <div class="menuTop">
+                <h3>Ayran</h3>
+                <span class="price">2,00 €</span>
+              </div>
+              <p class="muted">Klassisches Joghurtgetränk.</p>
+              <div class="tags">
+                <span class="tag">Kalt</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="menuItem card" data-category="getraenke" data-name="Cola / Fanta / Sprite">
+            <div class="inner">
+              <div class="menuTop">
+                <h3>Cola / Fanta / Sprite</h3>
+                <span class="price">2,50 €</span>
+              </div>
+              <p class="muted">0,33l (zzgl. Pfand falls zutreffend).</p>
+              <div class="tags">
+                <span class="tag">Kalt</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Hinweis, falls Filter keine Treffer ergibt (wird per JS ein/ausgeblendet) -->
+        <p class="muted noResults" id="noResults" hidden>Keine Treffer. Bitte Suche/Filter anpassen.</p>
+      </div>
+    </section>
+
+    <!-- =========================
+         ÜBER UNS
+    ========================== -->
+    <section class="section" id="about">
+      <div class="container grid twoCols">
+        <div class="card">
+          <div class="inner">
+            <h2>Über uns</h2>
+            <p class="muted">
+              Wir sind ein Dönerladen in Mönchengladbach mit Fokus auf frische Zutaten,
+              sauberes Handwerk und schnelle Zubereitung. Unsere Saucen werden täglich
+              vorbereitet, Salate frisch geschnitten.
+            </p>
+            <ul class="checkList">
+              <li>✅ Frische Zutaten & tägliche Vorbereitung</li>
+              <li>✅ Fleisch nach Wahl (Kalb/Hähnchen – Beispiel)</li>
+              <li>✅ Vegetarische Optionen</li>
+              <li>✅ Freundlicher Service</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="inner">
+            <h2>Allergene & Hinweise</h2>
+            <p class="muted">
+              Bitte frag unser Team zu Allergenen (Gluten, Milch, Sesam etc.).
+              Kreuzkontamination in der Küche ist möglich.
+            </p>
+            <div class="note">
+              <strong>Wichtig:</strong> Menü/Preise sind Beispielwerte und sollten für
+              deinen echten Laden angepasst werden.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         ÖFFNUNGSZEITEN
+    ========================== -->
+    <section class="section" id="hours">
+      <div class="container">
+        <div class="sectionHead">
+          <h2>Öffnungszeiten</h2>
+          <p class="muted">Beispielzeiten – bitte auf eure echten Zeiten anpassen.</p>
+        </div>
+
+        <div class="grid hoursGrid">
+          <div class="card">
+            <div class="inner hoursRow">
+              <span>Montag – Donnerstag</span>
+              <span class="hoursTime">11:00 – 22:00</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="inner hoursRow">
+              <span>Freitag – Samstag</span>
+              <span class="hoursTime">11:00 – 23:00</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="inner hoursRow">
+              <span>Sonntag</span>
+              <span class="hoursTime">12:00 – 22:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         KONTAKT + (MAP PLACEHOLDER)
+    ========================== -->
+    <section class="section" id="contact">
+      <div class="container grid twoCols">
+        <div class="card">
+          <div class="inner">
+            <h2>Kontakt</h2>
+
+            <!-- WICHTIG: Hier echte Daten eintragen -->
+            <div class="contactList">
+              <div class="contactItem">
+                <span class="contactLabel">Adresse</span>
+                <span class="contactValue">Musterstraße 12, 41061 Mönchengladbach</span>
+              </div>
+              <div class="contactItem">
+                <span class="contactLabel">Telefon</span>
+                <a class="contactValue link" href="tel:+492161000000">+49 2161 000000</a>
+              </div>
+              <div class="contactItem">
+                <span class="contactLabel">E-Mail</span>
+                <a class="contactValue link" href="mailto:info@doenerhaus-mg.de">info@doenerhaus-mg.de</a>
+              </div>
+            </div>
+
+            <div class="heroActions">
+              <a class="btn primary" href="tel:+492161000000">Anrufen</a>
+              <a class="btn" href="mailto:info@doenerhaus-mg.de">E-Mail schreiben</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="inner">
+            <h2>Standort</h2>
+            <p class="muted">
+              Hier kannst du später Google Maps einbetten (oder einen Link setzen).
+              In Datenschutz/Impressum beachten.
+            </p>
+
+            <!-- Platzhalter "Map"-Box -->
+            <div class="mapMock" role="img" aria-label="Kartenplatzhalter">
+              <div class="mapPin" aria-hidden="true"></div>
+              <div>
+                <div class="mapTitle">Mönchengladbach</div>
+                <div class="mapSub">Musterstraße 12 (Beispiel)</div>
+              </div>
+            </div>
+
+            <a class="btn" href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer">
+              Maps öffnen
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         IMPRESSUM (Muster)
+    ========================== -->
+    <section class="section" id="impressum">
+      <div class="container">
+        <div class="card">
+          <div class="inner legal">
+            <h2>Impressum</h2>
+
+            <p class="muted">
+              <strong>Hinweis:</strong> Das ist ein Muster. Bitte durch echte Unternehmensdaten ersetzen.
+            </p>
+
+            <h3>Angaben gemäß § 5 TMG</h3>
+            <p>
+              Dönerhaus MG (Muster)<br />
+              Musterstraße 12<br />
+              41061 Mönchengladbach<br />
+              Deutschland
+            </p>
+
+            <h3>Vertreten durch</h3>
+            <p>Max Mustermann (Inhaber, Muster)</p>
+
+            <h3>Kontakt</h3>
+            <p>
+              Telefon: +49 2161 000000<br />
+              E-Mail: info@doenerhaus-mg.de
+            </p>
+
+            <h3>Umsatzsteuer-ID</h3>
+            <p>USt-IdNr.: DE123456789 (Muster)</p>
+
+            <h3>Streitschlichtung</h3>
+            <p class="muted">
+              Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit.
+              Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer
+              Verbraucherschlichtungsstelle teilzunehmen.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         DATENSCHUTZ (Muster, Onepager)
+    ========================== -->
+    <section class="section" id="datenschutz">
+      <div class="container">
+        <div class="card">
+          <div class="inner legal">
+            <h2>Datenschutzerklärung</h2>
+
+            <p class="muted">
+              <strong>Hinweis:</strong> Mustertext. Für echten Einsatz anpassen (Cookies, Tracking, Maps, Hosting etc.).
+            </p>
+
+            <h3>1. Verantwortlicher</h3>
+            <p>
+              Dönerhaus MG (Muster), Musterstraße 12, 41061 Mönchengladbach<br />
+              E-Mail: info@doenerhaus-mg.de
+            </p>
+
+            <h3>2. Allgemeine Hinweise</h3>
+            <p class="muted">
+              Wir verarbeiten personenbezogene Daten nur, soweit dies erforderlich ist, um diese Website bereitzustellen
+              (z. B. Server-Logs) oder wenn du uns kontaktierst.
+            </p>
+
+            <h3>3. Server-Logfiles</h3>
+            <p class="muted">
+              Beim Aufruf der Website können technische Informationen (z. B. IP-Adresse, Datum/Uhrzeit, Browsertyp)
+              in Server-Logfiles verarbeitet werden. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse).
+            </p>
+
+            <h3>4. Kontaktaufnahme</h3>
+            <p class="muted">
+              Wenn du uns per E-Mail oder Telefon kontaktierst, verarbeiten wir die von dir übermittelten Daten zur
+              Bearbeitung deiner Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen)
+              oder Art. 6 Abs. 1 lit. f DSGVO.
+            </p>
+
+            <h3>5. Login-Funktion (Demo)</h3>
+            <p class="muted">
+              Der Login auf dieser Demo-Seite ist nur eine Frontend-Demo (ohne echte Nutzerverwaltung).
+              Es werden keine Daten an einen Server übertragen, solange du keinen Backend-Service ergänzt.
+            </p>
+
+            <h3>6. Einbindung von Drittinhalten (z. B. Maps)</h3>
+            <p class="muted">
+              Wenn du Google Maps oder andere externe Inhalte einbindest, können Daten an den Drittanbieter übertragen werden.
+              Nutze ggf. eine Einwilligungslösung (Cookie/Consent-Banner) und verlinke alternativ nur auf Maps.
+            </p>
+
+            <h3>7. Deine Rechte</h3>
+            <p class="muted">
+              Du hast Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch.
+              Außerdem besteht ein Beschwerderecht bei einer Aufsichtsbehörde.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+    <footer class="footer">
+      <div class="container footerInner">
+        <div class="muted">© <span id="year"></span> Dönerhaus MG (Muster) – Mönchengladbach</div>
+        <div class="footerLinks">
+          <a href="#impressum">Impressum</a>
+          <a href="#datenschutz">Datenschutz</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- =========================
+       LOGIN MODAL (Overlay)
+       - Öffnet via "Login" Button
+       - Schließt via X, Overlay-Klick, ESC
+  ========================== -->
+  <div class="modalOverlay" id="loginModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <div class="modalHead">
+        <h2 id="loginTitle">Login</h2>
+        <button class="iconBtn" id="loginCloseBtn" type="button" aria-label="Schließen">✕</button>
+      </div>
+
+      <!-- Login-Form (Demo ohne Backend) -->
+      <form id="loginForm" class="modalBody">
+        <label class="control">
+          <span class="controlLabel">E-Mail</span>
+          <input type="email" id="loginEmail" placeholder="name@beispiel.de" autocomplete="email" required />
+        </label>
+
+        <label class="control">
+          <span class="controlLabel">Passwort</span>
+          <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" required />
+        </label>
+
+        <div class="modalActions">
+          <button class="btn primary" type="submit">Einloggen</button>
+          <button class="btn" type="button" id="loginDemoBtn">Demo-Login</button>
+        </div>
+
+        <!-- Statusmeldungen (Erfolg/Fehler) -->
+        <p class="status" id="loginStatus" aria-live="polite"></p>
+
+        <p class="muted smallText">
+          Demo: Es wird nichts gespeichert und nichts an einen Server gesendet.
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================
+       JAVASCRIPT EINBINDEN (externe Datei)
+  ========================== -->
+  <script src="app.js"></script>
+</body>
+</html>
